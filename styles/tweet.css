@@ -1,0 +1,46 @@
+.tweet-block {
+    width: 500px;
+    max-width: 100%;
+    padding: 10px;
+    border: 1px solid #dadada;
+    border-radius: 4px;
+    margin: 1rem 0;
+}
+.tweet-block:hover {
+    border: 1px solid #b4b4b4;
+}
+.tweet-block .tweet-block {
+    margin-bottom: 0.5rem;
+}
+.tweet-block .user-full-name {
+    font-size: 16px;
+    color: black;
+    font-weight: 500;
+}
+.tweet-block .username {
+    color: #727272;
+    font-size: 13px;
+    font-weight: 700;
+    margin-left: 5px;
+}
+.tweet-block .date {
+    color: #727272;
+    font-weight: 700;
+    font-size: 12px;
+    margin-left: 0.5rem;
+}
+.tweet-block .tweet-text {
+    font-size: 16px;
+    color: black;
+    margin-top: 10px;
+}
+.tweet-block .like-count {
+    color: #e45656;
+    font-size: 12px;
+    font-weight: 700;
+}
+.tweet-block .rt-count {
+    color: #0071bc;
+    font-size: 12px;
+    font-weight: 700;
+}
