@@ -36,11 +36,13 @@
 }
 .tweet-block .like-count {
     color: #e45656;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 700;
+    cursor: pointer;
 }
 .tweet-block .rt-count {
     color: #0071bc;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 700;
+    cursor: pointer;
 }

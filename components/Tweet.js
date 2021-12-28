@@ -1,7 +1,6 @@
 import moment from 'moment'
 import React, { useState, useEffect } from 'react'
 
-
 export default function Tweet({ tweetData }){
     return (
         <div className='tweet-block'>
@@ -24,10 +23,12 @@ export default function Tweet({ tweetData }){
             </div>
             <div className='d-flex mt-2'>
                 <div className='like-count'>
-                    {tweetData.likes} Likes
+                    <i className={`fa-${tweetData.is_liked ? "solid": "regular"} fa-heart`}></i>
+                    <span className='mx-1'>{tweetData.likes}</span>
                 </div>
                 <div className='rt-count mx-2'>
-                    {tweetData.retweet_count} Retweets
+                    <i className='fa-solid fa-retweet'></i>
+                    <span className='mx-1'>{tweetData.likes}</span>
                 </div>
             </div>
         </div>
