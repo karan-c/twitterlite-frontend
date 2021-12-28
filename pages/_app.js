@@ -1,6 +1,9 @@
 import '../styles/globals.css';
 import '../styles/tweet.css';
+import '../styles/login.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'antd/dist/antd.css';
+
 import Head from 'next/head';
 
 function MyApp({ Component, pageProps }) {

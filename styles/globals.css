@@ -13,3 +13,7 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.fit-content {
+  width: fit-content;
+}

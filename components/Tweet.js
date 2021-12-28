@@ -26,7 +26,9 @@ export default function Tweet({ tweetData }){
                 <div className='like-count'>
                     {tweetData.likes} Likes
                 </div>
-                <div className='rt-count'></div>
+                <div className='rt-count mx-2'>
+                    {tweetData.retweet_count} Retweets
+                </div>
             </div>
         </div>
     )
