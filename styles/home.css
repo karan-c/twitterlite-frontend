@@ -1,3 +1,37 @@
 .feed-container {
     padding: 1rem 0 3rem 0;
 }
+.tweet-input {
+    border: 1px solid #d1bdbd;
+    font-size: 14px;
+    font-weight: 400;
+    color: black;
+    padding: 5px 10px;
+    border-radius: 3px;
+    width: 500px;
+    outline: none;
+}
+.tweet-input:focus {
+    border: 1px solid #2c8dce;
+}
+.tweet-board {
+    margin-top: 2rem;
+}
+.create-tweet-block {
+    width: 500px;
+}
+.tweet-button {
+    background-color: #2b90d3;
+    color: white;
+    font-size: 13px;
+    padding: 7px 20px;
+    border-radius: 30px;
+    font-weight: 600;
+    border: none;
+    outline: none;
+}
+.err-msg {
+    font-size: 12px;
+    color: rgb(231, 88, 88);
+    margin-bottom: 10px;
+}
