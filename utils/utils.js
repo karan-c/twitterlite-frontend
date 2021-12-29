@@ -4,7 +4,6 @@ export class Utils {
     static getApiEndpoint(signature) {
         let gatewayPath = 'http://127.0.0.1:8000/api/'
         let token = localStorage.getItem('access_token');
-        console.log(token)
         if (token) {
             axios.defaults.headers.common['Authorization'] = "Bearer " + token
         } else {
@@ -15,6 +14,8 @@ export class Utils {
                 return gatewayPath + 'token/';
             case 'tweet':
                 return gatewayPath + 'tweet/';
+            case 'like-tweet':
+                return gatewayPath + 'like-tweet/'
             default:
                 return '';
         }

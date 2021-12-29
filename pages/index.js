@@ -28,10 +28,48 @@ export default function Feed(props){
 		}
 	}
 
+	const likeTweet = (tweetId, isLiked) => {
+		let api = Utils.getApiEndpoint('like-tweet')
+		let body = {
+			"tweet_id": tweetId,
+			"action": isLiked ? "unlike": "like"
+		}
+		axios.post(api, body).then(res => {
+			if(res.status === 200) {
+				fetchTweets()
+				// handleAfterLike(tweetId, isLiked)
+			}
+			else {
+				alert("Something went wrong!")
+			}
+		}).catch(err => {
+			console.log(err);
+			alert("Something went wrong!")
+		})
+	}
+
+	const handleAfterLike = (tweetId, isLiked) =>  {
+		let tmpList = tweetList.slice()
+		tmpList = tmpList.map(item => {
+			let tmpItem = item
+			if (tmpItem['id'] === tweetId) {
+				tmpItem['is_liked'] = !tmpItem['is_liked']
+				tmpItem['likes'] = tmpItem['likes'] + (isLiked ? -1 : 1)
+			}
+			return tmpItem 
+		})
+		setTweetList(tmpList)
+	}
 	return(
 		<div className='feed-container'>
 			<div className='container'>
-				{tweetList.map((item, idx) => <Tweet tweetData={item} key={"tweet_" + idx}/>)}
+				{tweetList.map((item, idx) => 
+					<Tweet 
+						tweetData={item} key={"tweet_" + idx}
+						likeTweet={likeTweet}	
+						depthIndex={0}
+					/>
+				)}
 			</div>
 		</div>
 	)
