@@ -4,6 +4,7 @@ import Tweet from '../components/Tweet';
 import { Utils } from '../utils/utils';
 import { Button, notification, Modal, Input } from 'antd';
 import { useRouter } from 'next/router';
+import SideBar from '../components/SideBar';
 
 export default function Feed(props){
 	const [tweetList, setTweetList] = useState([])
@@ -124,10 +125,12 @@ export default function Feed(props){
 		<div className='feed-container'>
 			<div className='container'>
 				<div className='row'>
-					<div className='col-xl-4 col-lg-4 col-md-2 col-sm-2 col-xs-2'>
-
+					<div className='col-xl-3 col-lg-3 col-md-2 col-sm-2 col-xs-2'>
+						<div className='sticky-div'>
+							<SideBar />
+						</div>
 					</div>
-					<div className='col-xl-6 col-lg-6 col-md-10 col-sm-10 col-xs-10'>
+					<div className='col-xl-5 col-lg-5 col-md-10 col-sm-10 col-xs-10'>
 						{props.isLogin && <div className='create-tweet-block'>
 							<TextArea
 								autoSize={{ minRows : 3 }}
@@ -154,7 +157,7 @@ export default function Feed(props){
 							)}
 						</div>
 					</div>
-					<div className='col-xl-2 col-lg-2 col-md-0 col-sm-0 col-xs-0'>
+					<div className='col-xl-4 col-lg-4 col-md-0 col-sm-0 col-xs-0'>
 
 					</div>
 				</div>
