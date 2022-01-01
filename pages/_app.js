@@ -5,8 +5,15 @@ import '../styles/login.css';
 import '../styles/home.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'antd/dist/antd.css';
+import { useEffect, useState } from 'react';
 
 function MyApp({ Component, pageProps }) {
+  const [isLogin, setIsLogin] = useState(false)
+  useEffect(() => {
+    if (localStorage.getItem('access_token')) {
+      setIsLogin(true)
+    }
+  }, [])
   return (
     <>
       <Head>
@@ -18,7 +25,7 @@ function MyApp({ Component, pageProps }) {
           <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
       </Head>
-      <Component {...pageProps} />
+      <Component {...pageProps} isLogin={isLogin} setIsLogin={setIsLogin}/>
     </>
   )
 }

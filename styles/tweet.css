@@ -20,14 +20,13 @@
 .tweet-block .username {
     color: #727272;
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 600;
     margin-left: 5px;
 }
 .tweet-block .date {
     color: #727272;
-    font-weight: 700;
+    font-weight: 600;
     font-size: 12px;
-    margin-left: 0.5rem;
 }
 .tweet-block .tweet-text {
     font-size: 16px;
@@ -38,11 +37,14 @@
     color: #e45656;
     font-size: 14px;
     font-weight: 700;
-    cursor: pointer;
 }
 .tweet-block .rt-count {
     color: #0071bc;
     font-size: 14px;
     font-weight: 700;
-    cursor: pointer;
+}
+.center-dot {
+    font-weight: 800;
+    color: #727272;
+    margin: 0 7px;
 }

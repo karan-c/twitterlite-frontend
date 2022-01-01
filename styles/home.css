@@ -2,14 +2,9 @@
     padding: 1rem 0 3rem 0;
 }
 .tweet-input {
-    border: 1px solid #d1bdbd;
-    font-size: 14px;
-    font-weight: 400;
-    color: black;
-    padding: 5px 10px;
-    border-radius: 3px;
-    width: 500px;
+    border-radius: 3px !important;
     outline: none;
+    margin-bottom: 10px !important;
 }
 .tweet-input:focus {
     border: 1px solid #2c8dce;

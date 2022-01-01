@@ -17,3 +17,6 @@ a {
 .fit-content {
   width: fit-content;
 }
+.cursor-pointer {
+  cursor: pointer;
+}

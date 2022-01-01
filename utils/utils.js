@@ -15,9 +15,11 @@ export class Utils {
             case 'tweet':
                 return gatewayPath + 'tweet/';
             case 'like-tweet':
-                return gatewayPath + 'like-tweet/'
+                return gatewayPath + 'like-tweet/';
             case 'create-tweet':
-                return gatewayPath + 'create-tweet/'
+                return gatewayPath + 'create-tweet/';
+            case 'retweet':
+                return gatewayPath + 'retweet/';
             default:
                 return '';
         }

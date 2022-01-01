@@ -28,6 +28,7 @@ export default function Login (props) {
         }
         axios.post(api, body).then((res) => {
             if (res.status === 200) {
+                props.setIsLogin(true)
                 localStorage.setItem("access_token", res.data.access)
                 localStorage.setItem("refresh_token", res.data.refresh)
                 router.push('/')
@@ -37,10 +38,15 @@ export default function Login (props) {
             }
         }).catch(err => {
             console.log(err);
-            alert("Something went wrong!")
+            alert("Username or Password is invalid")
         })
     }
 
+    const handlePasswordKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            submitLoginDetails()
+        }
+    }
     return(
         <div className='login-box'>
             <div className='title'>Login to continue</div>
@@ -49,7 +55,7 @@ export default function Login (props) {
                 <input type={"text"} value={username} onChange={(e) => { setUsername(e.target.value) }}/>
                 {showErrMag && username === '' && <div className='err-msg'>*Please provide username</div>}
                 <div className='label'>Password</div>
-                <input type="password" value={password} onChange={(e) => { setPassword(e.target.value) }}/>
+                <input type="password" value={password} onChange={(e) => { setPassword(e.target.value) }} onKeyDown={handlePasswordKeyDown}/>
                 {showErrMag && password === '' && <div className='err-msg'>*Please provide password</div>}
                 <div className='mt-5 mx-auto fit-content'>
                     <Button type='primary' size='middle' onClick={(e) => submitLoginDetails()}>Login</Button>
