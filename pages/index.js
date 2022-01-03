@@ -22,7 +22,7 @@ export default function Home(props){
 			}
 			setTweetLoading(false)
 		}
-		catch(err) {
+		catch (err) {
 			alert("Something went wrong!")
 			setTweetLoading(false)
 			console.log(err)

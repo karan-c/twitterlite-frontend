@@ -28,7 +28,6 @@ export default function TweetList({ tweetList, isLogin, hideCreateBlock, fetchTw
 		axios.post(api, body).then(res => {
 			if(res.status === 200) {
 				fetchTweets()
-				// handleAfterLike(tweetId, isLiked)
 			}
 			else {
 				alert("Something went wrong!")

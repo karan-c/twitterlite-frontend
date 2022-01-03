@@ -37,6 +37,7 @@ export default function SideBar() {
         <div className="sidebar-block">
             {sidebarOptions.map((item, idx) =>
                 <div
+                    key={"option_" + idx}
                     className={"sidebar-option" + (selectedOption === item.id ? " blue-option" : " gray-option cursor-pointer")}
                     onClick={() => {
                         if (router.pathname !== item.link) {
@@ -45,7 +46,7 @@ export default function SideBar() {
                     }}
                 >
                     <div className="icon">
-                        <i class={item.iconClass}></i>
+                        <i className={item.iconClass}></i>
                     </div>
                     <div className="title">
                         {item.title}
