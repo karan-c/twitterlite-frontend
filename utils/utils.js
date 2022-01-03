@@ -14,6 +14,8 @@ export class Utils {
                 return gatewayPath + 'token/';
             case 'tweet':
                 return gatewayPath + 'tweet/';
+            case 'feed':
+                return gatewayPath + 'feed/';
             case 'like-tweet':
                 return gatewayPath + 'like-tweet/';
             case 'create-tweet':

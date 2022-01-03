@@ -4,17 +4,17 @@ import { Utils } from '../utils/utils';
 import SideBar from '../components/SideBar';
 import TweetList from '../components/TweetList';
 
-export default function Home(props){
+export default function Feed(props){
 	const [tweetList, setTweetList] = useState([])
 	const [tweetLoading, setTweetLoading] = useState(false)
 
 	useEffect(() => {
-		fetchTweets()
+		fetchFeedTweets()
 	}, [])
 
-	const fetchTweets = async () => {
+	const fetchFeedTweets = async () => {
 		setTweetLoading(true)
-		let api = Utils.getApiEndpoint('tweet')
+		let api = Utils.getApiEndpoint('feed')
 		try {
 			let data = await axios.get(api)
 			if (data.status === 200) {
@@ -43,7 +43,7 @@ export default function Home(props){
 							isLogin={props.isLogin}
 							tweetList={tweetList}
 							hideCreateBlock={false}
-							fetchTweets={fetchTweets}
+							fetchTweets={fetchFeedTweets}
 							tweetLoading={tweetLoading}
 						/>
 					</div>
