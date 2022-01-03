@@ -5,6 +5,13 @@
     border: 1px solid #dadada;
     border-radius: 4px;
     margin: 1rem 0;
+    display: grid;
+    grid-template-columns: 6% 94%;
+}
+.tweet-block .user-icon {
+    font-size: 20px;
+    color: #b4b4b4;
+    width: fit-content;
 }
 .tweet-block:hover {
     border: 1px solid #b4b4b4;
@@ -31,7 +38,7 @@
 .tweet-block .tweet-text {
     font-size: 16px;
     color: black;
-    margin-top: 10px;
+    margin-top: 5px;
 }
 .tweet-block .like-count {
     color: #e45656;

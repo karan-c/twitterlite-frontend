@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Utils } from '../utils/utils';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import jwt_decode from 'jwt-decode'
 
 export default function Login (props) {
     const [username, setUsername] = useState('')
@@ -29,10 +30,8 @@ export default function Login (props) {
         axios.post(api, body).then((res) => {
             if (res.status === 200) {
                 props.setIsLogin(true)
-                localStorage.setItem("access_token", res.data.access)
-                localStorage.setItem("refresh_token", res.data.refresh)
-                router.push('/')
-            }
+                handleAfterlogin(res.data.access, res.data.refresh)
+        }
             else {
                 alert("Username or Password is invalid")
             }
@@ -46,6 +45,28 @@ export default function Login (props) {
         if (e.key === 'Enter') {
             submitLoginDetails()
         }
+    }
+
+    const handleAfterlogin = (access_token, refresh_token)  => {
+        localStorage.setItem("access_token", access_token)
+        localStorage.setItem("refresh_token", refresh_token)
+        let token_data = jwt_decode(access_token)
+        localStorage.setItem('userid', token_data.user_id)
+        getUserDetails(token_data.user_id)
+    }
+
+    const getUserDetails = (userid) => {
+        let api = Utils.getApiEndpoint('user-details') + userid + '/'
+        axios.get(api).then(res => {
+            let data = res.data
+            localStorage.setItem('username', data.user_name)
+            localStorage.setItem('firstname', data.first_name)
+            localStorage.setItem('lastname', data.last_name)
+            router.push('/')
+        }).catch(err => {
+            console.log(err)
+            alert("Something went wrong! Please try again.")
+        })
     }
     return(
         <div className='login-box'>

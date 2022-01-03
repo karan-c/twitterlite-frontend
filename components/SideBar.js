@@ -14,7 +14,7 @@ export default function SideBar() {
                 setSelectedOption(1)
                 break;
             default:
-                setSelectedOption(1)
+                setSelectedOption(0)
                 break;
         }
     })
