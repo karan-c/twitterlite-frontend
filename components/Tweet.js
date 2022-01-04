@@ -1,23 +1,32 @@
 import moment from 'moment'
 import React, { useState, useEffect } from 'react'
+import Link from 'next/link'
 
 export default function Tweet({ tweetData, likeTweet, reTweet, depthIndex, isDummy }){
     return (
         <div className='tweet-block'>
             <div>
                 <div className='user-icon'>
-                    <i className='fa-solid fa-user'></i>
+                    <Link href={`/user/${tweetData.user.user_name}`}>
+                        <a className='d-flex align-items-end'>
+                            <i className='fa-solid fa-user user-icon-color'></i>
+                        </a>
+                    </Link>
                 </div>
             </div>
             <div>
                 <div className='d-flex align-items-end'>
-                    <div className='user-full-name'>
-                        {`${tweetData.user.first_name} ${tweetData.user.last_name}`}
-                    </div>
-                    {/* <span className='center-dot'>&#183;</span> */}
-                    <div className='username'>
-                        {`@${tweetData.user.user_name}`}
-                    </div>
+                    <Link href={`/user/${tweetData.user.user_name}`}>
+                        <a className='d-flex align-items-end'>
+                            <div className='user-full-name'>
+                                {`${tweetData.user.first_name} ${tweetData.user.last_name}`}
+                            </div>
+                            {/* <span className='center-dot'>&#183;</span> */}
+                            <div className='username'>
+                                {`@${tweetData.user.user_name}`}
+                            </div>
+                        </a>
+                    </Link>
                     <span className='center-dot'>&#183;</span>
                     <div className='date'>
                         {moment(tweetData.timestamp).fromNow()}

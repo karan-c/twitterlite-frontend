@@ -4,6 +4,7 @@ import '../styles/tweet.css';
 import '../styles/login.css';
 import '../styles/home.css';
 import '../styles/sidebar.css';
+import '../styles/user.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'antd/dist/antd.css';
 import { useEffect, useState } from 'react';

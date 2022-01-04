@@ -98,7 +98,7 @@ export default function TweetList({ tweetList, isLogin, hideCreateBlock, fetchTw
     
     return (
         <div className="tweetlist-block">
-            {isLogin && <div className='create-tweet-block'>
+            {isLogin && !hideCreateBlock && <div className='create-tweet-block'>
                 <TextArea
                     autoSize={{ minRows : 3 }}
                     placeholder={`What's Happening?`}

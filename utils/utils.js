@@ -24,6 +24,12 @@ export class Utils {
                 return gatewayPath + 'retweet/';
             case 'user-details':
                 return gatewayPath + 'user/';
+            case 'user-details-by-username':
+                return gatewayPath + 'username/';
+            case 'tweets-by-username':
+                return gatewayPath + 'tweets-by-username/';
+            case 'follow-user':
+                return gatewayPath + 'follow-user/';
             default:
                 return '';
         }

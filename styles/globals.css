@@ -20,3 +20,6 @@ a {
 .cursor-pointer {
   cursor: pointer;
 }
+.user-icon-color {
+  color: rgb(136, 155, 173);
+}

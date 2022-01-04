@@ -1,41 +1,61 @@
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 
-export default function SideBar() {
-    const [selectedOption, setSelectedOption] = useState(0)
+export default function SideBar({ isLogin }) {
+    const [selectedOption, setSelectedOption] = useState(null)
+    const [sideBarOptions, setSideBarOptions] = useState([])
     const router = useRouter()
+
     useEffect(() => {
-        let path = router.pathname
-        switch (path) {
-            case '/':
+        let sbOption = [
+            {
+                "id": 0,
+                "title": "Global",
+                "link": "/",
+                "iconClass": "fa-solid fa-globe"
+            },
+        ]
+        if (isLogin) {
+            sbOption.push({
+                "id": 1,
+                "title": "My Feed",
+                "link": "/feed",
+                "iconClass": "fa-solid fa-house-user"
+            })
+            sbOption.push({
+                "id": 2,
+                "title": "My Profile",
+                "link": `/user/${localStorage.getItem('username')}`,
+                "iconClass": "fa-solid fa-user"
+            })
+        }
+        setSideBarOptions(sbOption)
+    }, [isLogin])
+
+    useEffect(() => {
+        if (router.asPath !== router.route) {
+            let path = router.asPath
+            let ownProfilePath = localStorage.getItem('username') ? `/user/${localStorage.getItem('username')}` : ''
+            console.log(ownProfilePath, path)
+            if (path === ownProfilePath) {
+                setSelectedOption(2)
+            }
+        }
+        else {
+            let path = router.asPath
+            if (path === '/') {
                 setSelectedOption(0)
-                break;
-            case '/feed':
+            }
+            else if (path === '/feed'){
                 setSelectedOption(1)
-                break;
-            default:
-                setSelectedOption(0)
-                break;
+            }
         }
-    })
-    const sidebarOptions = [
-        {
-            "id": 0,
-            "title": "Global",
-            "link": "/",
-            "iconClass": "fa-solid fa-globe"
-        },
-        {
-            "id": 1,
-            "title": "My Feed",
-            "link": "/feed",
-            "iconClass": "fa-solid fa-house-user"
-        }
-    ]
+    }, [router])
+
 
     return (
         <div className="sidebar-block">
-            {sidebarOptions.map((item, idx) =>
+            {sideBarOptions.map((item, idx) =>
                 <div
                     key={"option_" + idx}
                     className={"sidebar-option" + (selectedOption === item.id ? " blue-option" : " gray-option cursor-pointer")}
