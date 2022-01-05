@@ -30,6 +30,8 @@ export class Utils {
                 return gatewayPath + 'tweets-by-username/';
             case 'follow-user':
                 return gatewayPath + 'follow-user/';
+            case 'create-account':
+                return gatewayPath + 'register-user/';
             default:
                 return '';
         }

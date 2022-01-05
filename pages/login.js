@@ -1,17 +1,23 @@
-import { Button } from 'antd';
+import { Button, notification } from 'antd';
 import React, { useState, useEffect } from 'react';
 import { Utils } from '../utils/utils';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import jwt_decode from 'jwt-decode'
+import Cookies from 'universal-cookie';
 
 export default function Login (props) {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [showErrMag, setShowErrMag] = useState(false)
     const router = useRouter()
+    const cookie = new Cookies()
 
     useEffect(() => {
+        if (cookie.get('show_register_msg')) {
+            notification.success({ message: "Account created successfully! Please login to continue", duration: 3 })
+            cookie.remove('show_register_msg')
+        }
         if (localStorage.getItem('access_token')) {
             router.push('/')
         }

@@ -132,7 +132,7 @@ export default function TweetList({ tweetList, isLogin, hideCreateBlock, fetchTw
 				onCancel={() => { setLoginModalVisible(false)}}
 				cancelText={"Skip"}
 			>
-				<div>Please Login to continue</div>
+				<div>Please Login to perform this action</div>
 			</Modal>
             <Modal
 				visible={showRetweetModal}
