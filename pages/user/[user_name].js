@@ -77,7 +77,7 @@ export default function User(props) {
 				<div className='row'>
 					<div className='col-xl-3 col-lg-3 col-md-2 col-sm-2 col-xs-2'>
 						<div className='sticky-div'>
-							<SideBar isLogin={props.isLogin}/>
+							<SideBar isLogin={props.isLogin} />
 						</div>
 					</div>
 					<div className='col-xl-5 col-lg-5 col-md-10 col-sm-10 col-xs-10'>
@@ -93,7 +93,9 @@ export default function User(props) {
                                     </div>
                                 </div>
                                 {ownProfile
-                                    ? <div className="edit-block">
+                                    ? <div className="edit-block" onClick={() => {
+                                        router.push('/edit-profile')
+                                    }}>
                                         <i className="fa-solid fa-pen"></i>
                                         &nbsp;Edit Pofile
                                     </div>

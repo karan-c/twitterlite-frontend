@@ -1,0 +1,40 @@
+
+.edit-profile-container .ep-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: rgb(78, 75, 75);
+    margin-top: 2rem;
+}
+.ep-form {
+    margin-top: 2rem;
+    width: 100%;
+}
+
+.ep-form .field-div {
+    display: grid;
+    grid-template-columns: 25% 75%;
+    margin: 2.2rem 0;
+}
+.ep-form .label {
+    margin-top: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    color: rgb(65, 61, 61);
+}
+.ep-input {
+    width: 100%;
+    padding: 7px 10px;
+    border: 1px solid #dddcdc;
+    border-radius: 3px;
+    font-size: 16px;
+    outline: none;
+}
+.ep-input:focus {
+    border: 1px solid #2c8dce;
+}
+.ep-bio {
+    border-radius: 3px !important;
+    outline: none;
+    margin-bottom: 10px !important;
+    font-size: 16px !important;
+}

@@ -37,7 +37,7 @@ export default function Login (props) {
             if (res.status === 200) {
                 props.setIsLogin(true)
                 handleAfterlogin(res.data.access, res.data.refresh)
-        }
+            }
             else {
                 alert("Username or Password is invalid")
             }

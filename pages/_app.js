@@ -5,15 +5,16 @@ import '../styles/login.css';
 import '../styles/home.css';
 import '../styles/sidebar.css';
 import '../styles/user.css';
+import '../styles/editProfile.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'antd/dist/antd.css';
 import { useEffect, useState } from 'react';
 
 function MyApp({ Component, pageProps }) {
-  const [isLogin, setIsLogin] = useState(false)
+  const [isLogin, setIsLogin] = useState(true)
   useEffect(() => {
-    if (localStorage.getItem('access_token')) {
-      setIsLogin(true)
+    if (!localStorage.getItem('access_token')) {
+      setIsLogin(false)
     }
   }, [])
   return (

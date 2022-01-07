@@ -1,7 +1,7 @@
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 
-export default function SideBar({ isLogin }) {
+export default function SideBar({ isLogin, profileLink }) {
     const [selectedOption, setSelectedOption] = useState(null)
     const [sideBarOptions, setSideBarOptions] = useState([])
     const router = useRouter()
@@ -16,6 +16,7 @@ export default function SideBar({ isLogin }) {
             },
         ]
         if (isLogin) {
+            console.log(profileLink)
             sbOption.push({
                 "id": 1,
                 "title": "My Feed",
@@ -25,12 +26,12 @@ export default function SideBar({ isLogin }) {
             sbOption.push({
                 "id": 2,
                 "title": "My Profile",
-                "link": `/user/${localStorage.getItem('username')}`,
+                "link": profileLink ?? `/user/${localStorage.getItem('username')}`,
                 "iconClass": "fa-solid fa-user"
             })
         }
         setSideBarOptions(sbOption)
-    }, [isLogin])
+    }, [isLogin, profileLink])
 
     useEffect(() => {
         if (router.asPath !== router.route) {
