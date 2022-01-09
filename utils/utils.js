@@ -34,6 +34,10 @@ export class Utils {
                 return gatewayPath + 'register-user/';
             case 'update-user':
                 return gatewayPath + 'update-user/'
+            case 'followers':
+                return gatewayPath + 'followers-list/'
+            case 'followings':
+                return gatewayPath + 'followings-list/'
             default:
                 return '';
         }

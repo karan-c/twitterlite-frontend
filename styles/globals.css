@@ -23,3 +23,6 @@ a {
 .user-icon-color {
   color: rgb(136, 155, 173);
 }
+.color-unset {
+  color: unset;
+}

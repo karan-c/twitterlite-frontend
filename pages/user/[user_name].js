@@ -4,6 +4,8 @@ import { useEffect, useState } from "react"
 import SideBar from "../../components/SideBar"
 import TweetList from "../../components/TweetList"
 import { Utils } from "../../utils/utils"
+import { Modal } from "antd"
+import Link from "next/link"
 
 export default function User(props) {
     const [username, setUsername] = useState(null)
@@ -11,7 +13,11 @@ export default function User(props) {
     const [tweetLoading, setTweetLoading] = useState(false)
     const [ownProfile, setOwnProfile] = useState(false)
     const [userInfo, setUserInfo] = useState(null)
-
+    const [followersList, setFollowersList] = useState([])
+    const [followingsList, setFollowingsList] = useState([])
+    const [showFollowersModal, setShowFollowersModal] = useState(false)
+    const [listTitle, setListTitle] = useState('Followers')
+    const [modalList, setModalList] = useState([])
     const router = useRouter()
     const { query } = useRouter()
 
@@ -19,17 +25,23 @@ export default function User(props) {
         if (query.user_name) {
             setUsername(query.user_name)
         }
+        setShowFollowersModal(false)
     }, [router])
     
     useEffect(() => {
         if (username) {
-            if (username === localStorage.getItem('username')) {
-                setOwnProfile(true)
-            }
+            setOwnProfile(username === localStorage.getItem('username'))
             fetchTweetList()
             fetchUserInfo()
         }
     }, [username])
+
+    useEffect(() => {
+        if (userInfo && 'id' in userInfo) {
+            fetchFollowers()
+            fetchFollowings()
+        }
+    }, [userInfo])
 
     const fetchTweetList = () => {
         setTweetLoading(true)
@@ -41,6 +53,26 @@ export default function User(props) {
             console.log(err)
             setTweetLoading(false)
             alert("Something went wrong! Please try again later.")
+        })
+    }
+
+    const fetchFollowers = () => {
+        let api = Utils.getApiEndpoint('followers') + userInfo.id + '/'
+        axios.get(api).then(res => {
+            setFollowersList(res.data)
+        }).catch(err => {
+            console.log(err)
+            alert("Couldn't load followers. Please try again later")
+        })
+    }
+
+    const fetchFollowings = () => {
+        let api = Utils.getApiEndpoint('followings') + userInfo.id + '/'
+        axios.get(api).then(res => {
+            setFollowingsList(res.data)
+        }).catch(err => {
+            console.log(err)
+            alert("Couldn't load followings. Please try again later")
         })
     }
 
@@ -69,6 +101,12 @@ export default function User(props) {
             console.log(err)
             alert("Something went wrong!")
         })
+    }
+
+    const showUserListModal = (listType) => {
+        setModalList(listType === 'followers' ? followersList : followingsList)
+        setListTitle(listType === 'followers' ? "Followers" : "Followings")
+        setShowFollowersModal(true)
     }
 
     return (
@@ -110,8 +148,8 @@ export default function User(props) {
                             </div>
                             <div className="bio">{userInfo.bio}</div>
                             <div className="follow-block">
-                                <div>{userInfo.followers_count} Followers</div>
-                                <div>{userInfo.followings_count} Followings</div>
+                                <div onClick={() => showUserListModal('followers')}>{userInfo.followers_count} Followers</div>
+                                <div onClick={() => showUserListModal('followings')}>{userInfo.followings_count} Followings</div>
                             </div>
                         </div>}
                         <TweetList
@@ -124,7 +162,43 @@ export default function User(props) {
 					</div>
 					<div className='col-xl-4 col-lg-4 col-md-0 col-sm-0 col-xs-0'>
 					</div>
-				</div>
+                </div>
+                <Modal
+                    visible={showFollowersModal}
+                    onCancel={() => setShowFollowersModal(false)}
+                    footer={null}
+                    title={listTitle}
+                    width={400}
+                >
+                    <div className="user-list">
+                        {modalList.map(item => 
+                            <div className="user-row">
+                                <div className="icon cursor-pointer" onClick={() => {
+                                    router.push(`/user/${item.user_name}`)
+                                }}>
+                                    <i className='fa-solid fa-user user-icon-color'></i>
+                                </div>
+                                    <div className="user-row-right">
+                                        <div className="cursor-pointer" onClick={() => {
+                                            router.push(`/user/${item.user_name}`)
+                                        }}>
+                                            <span className="fullname">{item.first_name + ' ' + item.last_name}</span>
+                                            <span className="username mx-2">@{item.user_name}</span>
+                                        </div>
+                                        <div>
+                                            <span className="follow-count">{item.followers_count} Followers</span>
+                                            <span className="follow-count mx-3">{item.followings_count} Followings</span>
+                                        </div>
+                                    </div>
+                            </div>
+                        )}
+                        {modalList.length === 0 && 
+                            <div className="no-data-div">
+                                <i class="fa-solid fa-magnifying-glass mx-1"></i> No data found
+                            </div>
+                        }
+                    </div>
+                </Modal>
 			</div>
 		</div>
     )
