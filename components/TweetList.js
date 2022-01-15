@@ -1,6 +1,6 @@
 import { Input, Modal, notification } from "antd";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Utils } from "../utils/utils";
 import Tweet from "./Tweet";
 import axios from "axios";
@@ -14,6 +14,7 @@ export default function TweetList({ tweetList, isLogin, hideCreateBlock, fetchTw
 	const [reTweetData, setRetweetData] = useState(null)
     const { TextArea } = Input
     const router = useRouter()
+	const editBox = useRef()
 
     const likeTweet = (tweetId, isLiked) => {
 		if (!isLogin) {
@@ -99,13 +100,24 @@ export default function TweetList({ tweetList, isLogin, hideCreateBlock, fetchTw
     return (
         <div className="tweetlist-block">
             {isLogin && !hideCreateBlock && <div className='create-tweet-block'>
-                <TextArea
-                    autoSize={{ minRows : 3 }}
-                    placeholder={`What's Happening?`}
-                    value={tweetText}
-                    onChange={(e) => setTweetText(e.target.value)}
-                    className='tweet-input'
-                />
+				<div className="edit-box" ref={editBox}>
+					<TextArea
+						autoSize={{ minRows : 3 }}
+						placeholder={`What's Happening?`}
+						value={tweetText}
+						onChange={(e) => setTweetText(e.target.value)}
+						className='tweet-input'
+						onFocus={() => {
+							editBox.current.className = 'edit-box focus-style'
+						}}
+						onBlur={() => {
+							editBox.current.className = 'edit-box'
+						}}
+					/>
+					<div className="upload-block">
+						<i className="fa-regular fa-image"></i>
+					</div>
+				</div>
                 {showTweetErr && tweetText === '' && <div className='err-msg'>*This field cannot be empty</div>}
                 <div className='d-flex justify-content-end'>
                     <button className='tweet-button' onClick={() => createTweet()}>Tweet</button>

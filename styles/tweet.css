@@ -53,6 +53,14 @@
     font-size: 14px;
     font-weight: 700;
 }
+.tweet-block .image-block {
+    width: 100%;
+    position: relative;
+    height: 300px;
+}
+.tweet-block .image-block img {
+    width: 100%;
+}
 .center-dot {
     font-weight: 800;
     color: #727272;

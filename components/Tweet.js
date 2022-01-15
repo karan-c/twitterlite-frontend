@@ -1,6 +1,7 @@
 import moment from 'moment'
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function Tweet({ tweetData, likeTweet, reTweet, depthIndex, isDummy }){
     return (
@@ -35,6 +36,9 @@ export default function Tweet({ tweetData, likeTweet, reTweet, depthIndex, isDum
                 <div className='tweet-text'>
                     {tweetData.content}
                 </div>
+                {'image' in tweetData && tweetData.image !== '' && <div className='image-block' >
+                    <Image src={tweetData.image} layout='fill' objectFit='contain' />
+                </div>}
                 {depthIndex <= 1 && <div>
                     {tweetData.retweet_obj &&
                         <Tweet
