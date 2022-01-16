@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { Utils } from "../utils/utils";
 import Tweet from "./Tweet";
 import axios from "axios";
+import Image from 'next/image'
 
 export default function TweetList({ tweetList, isLogin, hideCreateBlock, fetchTweets, tweetLoading }) {
 	const [tweetText, setTweetText] = useState('')
@@ -12,6 +13,7 @@ export default function TweetList({ tweetList, isLogin, hideCreateBlock, fetchTw
     const [showRetweetModal, setShowRetweetModal] = useState(false)
 	const [loginModalVisible, setLoginModalVisible] = useState(false)
 	const [reTweetData, setRetweetData] = useState(null)
+	const [imageBase64, setImageBase64] = useState(null)
     const { TextArea } = Input
     const router = useRouter()
 	const editBox = useRef()
@@ -84,19 +86,53 @@ export default function TweetList({ tweetList, isLogin, hideCreateBlock, fetchTw
 		let body = {
 			"content": tweetText
 		}
+		if (imageBase64) {
+			body['image'] = imageBase64.split('base64,')[1]
+		}
 		axios.post(api, body).then(res => {
 			if (res.status === 200) {
 				fetchTweets()
 				setTweetText('')
 				setShowTweetErr(false)
-				notification.success({"message": "Tweet created successfully!", duration: 2})
+				notification.success({ "message": "Tweet created successfully!", duration: 2 })
+				setImageBase64(null)
 			}
 		}).catch(err => {
+			setImageBase64(null)
 			console.log(err)
 			alert("Something went wrong!")
 		})
-    }
+	}	
+	
+	const onImageUpload = (e) => {
+		if (e.target.files[0].type === 'image/jpeg' || e.target.files[0].type === 'image/png') {
+			if (e.target.files[0].size / (1024 * 1024) < 2) {
+				encodeBase64(e.target.files[0])
+			}
+			else {
+				alert("Image must be smaller than 2MB")
+			}
+		}
+		else {
+			alert("Currently we only allow JPEG and PNG files")
+		}
+	} 
     
+	const encodeBase64 = (file) => {
+		let reader = new FileReader()
+		if (file) {
+			reader.readAsDataURL(file)
+			reader.onload = () => {
+				let base64 = reader.result;
+				setImageBase64(base64)
+			}
+			reader.onerror = (err) => {
+				console.log(err);
+				alert("Something went wrong while uploading!")
+			}
+		}
+	}
+
     return (
         <div className="tweetlist-block">
             {isLogin && !hideCreateBlock && <div className='create-tweet-block'>
@@ -115,7 +151,11 @@ export default function TweetList({ tweetList, isLogin, hideCreateBlock, fetchTw
 						}}
 					/>
 					<div className="upload-block">
-						<i className="fa-regular fa-image"></i>
+						{imageBase64 && <div className="image-preview">
+							<Image src={imageBase64} layout="fill" objectFit="contain" />
+						</div>}
+						<input type={'file'} id="image-input" style={{ display: "none" }} onChange={onImageUpload} />
+						<i className="fa-regular fa-image cursor-pointer" onClick={() => {document.getElementById('image-input').click() }}></i>
 					</div>
 				</div>
                 {showTweetErr && tweetText === '' && <div className='err-msg'>*This field cannot be empty</div>}
