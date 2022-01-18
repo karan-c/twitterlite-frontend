@@ -36,7 +36,7 @@ export default function Tweet({ tweetData, likeTweet, reTweet, depthIndex, isDum
                 <div className='tweet-text'>
                     {tweetData.content}
                 </div>
-                {'image' in tweetData && tweetData.image !== '' && <div className='image-block' >
+                {'image' in tweetData && tweetData.image && <div className='image-block' >
                     <Image src={tweetData.image} layout='fill' objectFit='contain' />
                 </div>}
                 {depthIndex <= 1 && <div>
@@ -45,7 +45,7 @@ export default function Tweet({ tweetData, likeTweet, reTweet, depthIndex, isDum
                             tweetData={tweetData.retweet_obj}
                             likeTweet={likeTweet}
                             depthIndex={depthIndex + 1}
-                            isDummy={isDummy}
+                            isDummy={true}
                             reTweet={reTweet}
                         />}
                 </div>}

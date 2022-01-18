@@ -1,12 +1,12 @@
 import { Input, Modal, notification } from "antd";
 import { useRouter } from "next/router";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Utils } from "../utils/utils";
 import Tweet from "./Tweet";
 import axios from "axios";
 import Image from 'next/image'
 
-export default function TweetList({ tweetList, isLogin, hideCreateBlock, fetchTweets, tweetLoading }) {
+export default function TweetList({ tweetList, isLogin, hideCreateBlock, fetchTweets, tweetLoading, setTweetList }) {
 	const [tweetText, setTweetText] = useState('')
 	const [retweetText, setRetweetText] = useState('')
 	const [showTweetErr, setShowTweetErr] = useState(false)
@@ -17,6 +17,7 @@ export default function TweetList({ tweetList, isLogin, hideCreateBlock, fetchTw
     const { TextArea } = Input
     const router = useRouter()
 	const editBox = useRef()
+	const tweetBoardRef = useRef()
 
     const likeTweet = (tweetId, isLiked) => {
 		if (!isLogin) {
@@ -30,7 +31,8 @@ export default function TweetList({ tweetList, isLogin, hideCreateBlock, fetchTw
 		}
 		axios.post(api, body).then(res => {
 			if(res.status === 200) {
-				fetchTweets()
+				// fetchTweets()
+				handleAfterLike(isLiked ? -1 : 1, tweetId)
 			}
 			else {
 				alert("Something went wrong!")
@@ -39,6 +41,18 @@ export default function TweetList({ tweetList, isLogin, hideCreateBlock, fetchTw
 			console.log(err);
 			alert("Something went wrong!")
 		})
+	}
+
+	const handleAfterLike = (action, tweetId) => {
+		let tmpList = tweetList.slice()
+		tmpList = tmpList.map((item) => {
+			if (item.id === tweetId) {
+				item.is_liked = !item.is_liked		
+				item.likes = item.likes + (action)
+			}
+			return item
+		})
+		setTweetList(tmpList)
 	}
 
 	const retweetClick = (tweetData) => {
@@ -77,6 +91,7 @@ export default function TweetList({ tweetList, isLogin, hideCreateBlock, fetchTw
 		setRetweetData(null)
 		setRetweetText('')
 	}
+
 	const createTweet = () => {
 		if (tweetText === '')  {
 			setShowTweetErr(true)
@@ -133,9 +148,10 @@ export default function TweetList({ tweetList, isLogin, hideCreateBlock, fetchTw
 		}
 	}
 
-    return (
+	return (
+		
         <div className="tweetlist-block">
-            {isLogin && !hideCreateBlock && <div className='create-tweet-block'>
+			{isLogin && !hideCreateBlock && <div className='create-tweet-block'>
 				<div className="edit-box" ref={editBox}>
 					<TextArea
 						autoSize={{ minRows : 3 }}
@@ -163,7 +179,7 @@ export default function TweetList({ tweetList, isLogin, hideCreateBlock, fetchTw
                     <button className='tweet-button' onClick={() => createTweet()}>Tweet</button>
                 </div>
             </div>}
-            <div className='tweet-board'>
+			<div className='tweet-board'>
                 {tweetList.map((item, idx) => 
                     <Tweet 
                         tweetData={item}
@@ -174,7 +190,8 @@ export default function TweetList({ tweetList, isLogin, hideCreateBlock, fetchTw
                         reTweet={retweetClick}
                     />
                 )}
-            </div>
+			</div>
+			{tweetLoading && <div className="lds-ripple"><div></div><div></div></div>}
             <Modal
 				visible={loginModalVisible}
 				okText={"Login"}

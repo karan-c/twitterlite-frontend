@@ -1,7 +1,8 @@
+import { Popconfirm } from "antd"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 
-export default function SideBar({ isLogin, profileLink }) {
+export default function SideBar({ isLogin, profileLink, setIsLogin }) {
     const [selectedOption, setSelectedOption] = useState(null)
     const [sideBarOptions, setSideBarOptions] = useState([])
     const router = useRouter()
@@ -53,27 +54,51 @@ export default function SideBar({ isLogin, profileLink }) {
         }
     }, [router])
 
-
+    const handleLogout = () => {
+        localStorage.clear();
+        setIsLogin(false)
+        router.reload()
+    }
     return (
         <div className="sidebar-block">
-            {sideBarOptions.map((item, idx) =>
-                <div
-                    key={"option_" + idx}
-                    className={"sidebar-option" + (selectedOption === item.id ? " blue-option" : " gray-option cursor-pointer")}
-                    onClick={() => {
-                        if (router.pathname !== item.link) {
-                            router.push(item.link)
-                        }
-                    }}
+            <div>
+                {sideBarOptions.map((item, idx) =>
+                    <div
+                        key={"option_" + idx}
+                        className={"sidebar-option" + (selectedOption === item.id ? " blue-option" : " gray-option cursor-pointer")}
+                        onClick={() => {
+                            if (router.pathname !== item.link) {
+                                router.push(item.link)
+                            }
+                        }}
+                    >
+                        <div className="icon">
+                            <i className={item.iconClass}></i>
+                        </div>
+                        <div className="title">
+                            {item.title}
+                        </div>
+                    </div>
+                )}
+            </div>
+            {isLogin &&
+                <Popconfirm
+                    title={"Are you sure you want logout?"}
+                    onConfirm={handleLogout}
+                    okText="Yes"
+                    cancelText="No"
+                    placement="top"
                 >
-                    <div className="icon">
-                        <i className={item.iconClass}></i>
+                    <div className="sidebar-option gray-option cursor-pointer">
+                        <div className="icon">
+                            <i className="fa-solid fa-arrow-right-from-bracket"></i>
+                        </div>
+                        <div className="title">
+                            Logout
+                        </div>
                     </div>
-                    <div className="title">
-                        {item.title}
-                    </div>
-                </div>
-            )}
+                </Popconfirm>
+            }
         </div>
     )
 }
