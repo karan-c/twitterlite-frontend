@@ -6,6 +6,7 @@ import TweetList from "../../components/TweetList"
 import { Utils } from "../../utils/utils"
 import { Modal } from "antd"
 import Link from "next/link"
+import Image from "next/image"
 
 export default function User(props) {
     const [username, setUsername] = useState(null)
@@ -123,7 +124,11 @@ export default function User(props) {
                             <div className="user-top-section">
                                 <div className="top-left">
                                     <div className="profile-pic">
-                                        <i className="fa-solid fa-user user-icon-color"></i>
+                                        {userInfo.profile_pic
+                                            ? <div className="user-dp">
+                                                <Image src={userInfo.profile_pic} layout="fill" objectFit='cover' className="user-dp" />
+                                            </div>
+                                            : <i className="fa-solid fa-user user-icon-color"></i>}
                                     </div>
                                     <div>
                                         <div className="full-name">{`${userInfo.first_name} ${userInfo.last_name}`}</div>

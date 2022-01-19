@@ -37,7 +37,7 @@
 }
 .sticky-div {
     position: sticky;
-    top: 2rem;
+    top: 1rem;
 }
 .edit-box {
     border: 1px solid #d9d9d9;

@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import SideBar from "../components/SideBar";
 import { Utils } from "../utils/utils";
+import Image from "next/image";
 
 export default function EditProfile(props) {
     const [isLoading, setIsLoading] = useState(false)
@@ -15,6 +16,8 @@ export default function EditProfile(props) {
     const [sideBarLink, setSideBarLink] = useState('')
     const [bio, setBio] = useState('')
     const [userId, setUserId] = useState(null)
+    const [profileUrl, setProfileUrl] = useState(null)
+    const [profileImgBase64, setProfileImgBase64] = useState(null)
     const router = useRouter()
     const { TextArea } = Input
 
@@ -42,6 +45,7 @@ export default function EditProfile(props) {
             setFirstname(res.data.first_name)
             setLastname(res.data.last_name)
             setBio(res.data.bio)
+            setProfileUrl(res.data.profile_pic)
         }).catch(err => {
             console.log(err);
             alert("Something went wrong! Please try again later.")
@@ -62,7 +66,10 @@ export default function EditProfile(props) {
             "user_name": username,
             "last_name": lastname,
             "first_name": firstname,
-            "bio": bio
+            "bio": bio,
+        }
+        if (profileImgBase64) {
+            body['profile_pic'] = profileImgBase64.split('base64,')[1]
         }
         axios.post(api, body).then(res => {
             if (res.status === 200) {
@@ -77,6 +84,36 @@ export default function EditProfile(props) {
             console.log(err)
         })
     }
+
+    const onImageUpload = (e) => {
+		if (e.target.files[0].type === 'image/jpeg' || e.target.files[0].type === 'image/png') {
+			if (e.target.files[0].size / (1024 * 1024) < 2) {
+				encodeBase64(e.target.files[0])
+			}
+			else {
+				alert("Image must be smaller than 2MB")
+			}
+		}
+		else {
+			alert("Currently we only allow JPEG and PNG files")
+		}
+	} 
+    
+	const encodeBase64 = (file) => {
+		let reader = new FileReader()
+		if (file) {
+			reader.readAsDataURL(file)
+			reader.onload = () => {
+				let base64 = reader.result;
+				setProfileImgBase64(base64)
+			}
+			reader.onerror = (err) => {
+				console.log(err);
+				alert("Something went wrong while uploading!")
+			}
+		}
+    }
+    
     return (
         <div className="edit-profile-container">
             <div className="container">
@@ -121,6 +158,20 @@ export default function EditProfile(props) {
                                         className='ep-bio'
                                     />
                                     {/* <input value={username} onChange={(e) => { setUsername(e.target.value) }} className="ep-input" /> */}
+                                </div>
+                            </div>
+                            <div className="field-div">
+                                <div className="label">Profile Image:</div>
+                                <div className="fit-content">
+                                    {(profileUrl || profileImgBase64) && <div className="dp-preview">
+                                        <Image src={profileImgBase64 ?? profileUrl} layout='fill' objectFit="cover" />
+                                    </div>}
+                                    <input type={"file"} style={{display: "none"}} id="profile-pic" onChange={onImageUpload} />
+                                    <div className="mx-auto my-3 fit-content">
+                                        <Button size="small" className="" onClick={() => {
+                                            document.getElementById('profile-pic').click()
+                                        }}>Update</Button>
+                                    </div>
                                 </div>
                             </div>
                             <div className="mx-auto fit-content mt-3">

@@ -21,6 +21,11 @@
     font-size: 55px;
     line-height: 55px;
 }
+.user-info-block .profile-pic .user-dp, .field-div .user-dp {
+    width: 55px;
+    height: 55px;
+    position: relative;
+}
 .user-info-block .edit-block {
     border: 1px solid #268ee4;
     color: #268ee4;

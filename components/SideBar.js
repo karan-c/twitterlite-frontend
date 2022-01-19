@@ -32,6 +32,7 @@ export default function SideBar({ isLogin, profileLink, setIsLogin }) {
             })
         }
         setSideBarOptions(sbOption)
+       
     }, [isLogin, profileLink])
 
     useEffect(() => {
@@ -57,6 +58,9 @@ export default function SideBar({ isLogin, profileLink, setIsLogin }) {
     const handleLogout = () => {
         localStorage.clear();
         setIsLogin(false)
+        if (router.asPath.includes('/feed') || router.asPath.includes('/edit-profile')) {
+            router.push('/')
+        }
         router.reload()
     }
     return (

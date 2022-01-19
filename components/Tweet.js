@@ -10,12 +10,14 @@ export default function Tweet({ tweetData, likeTweet, reTweet, depthIndex, isDum
                 <div className='user-icon'>
                     <Link href={`/user/${tweetData.user.user_name}`}>
                         <a className='d-flex align-items-end'>
-                            <i className='fa-solid fa-user user-icon-color'></i>
+                            {tweetData.user.profile_pic
+                                ? <Image src={tweetData.user.profile_pic} width={40} height={40} className="user-dp" /> 
+                                : <i className='fa-solid fa-user user-icon-color'></i>}
                         </a>
                     </Link>
                 </div>
             </div>
-            <div>
+            <div className='tweet-right-block'>
                 <div className='d-flex align-items-end'>
                     <Link href={`/user/${tweetData.user.user_name}`}>
                         <a className='d-flex align-items-end'>
