@@ -1,10 +1,11 @@
-import { Popconfirm } from "antd"
+import { Popconfirm, Modal } from "antd"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 
 export default function SideBar({ isLogin, profileLink, setIsLogin }) {
     const [selectedOption, setSelectedOption] = useState(null)
     const [sideBarOptions, setSideBarOptions] = useState([])
+    const [loginModalVisible, setLoginModalVisible] = useState(false);
     const router = useRouter()
 
     useEffect(() => {
@@ -15,22 +16,34 @@ export default function SideBar({ isLogin, profileLink, setIsLogin }) {
                 "link": "/",
                 "iconClass": "fa-solid fa-globe"
             },
-        ]
-        if (isLogin) {
-            console.log(profileLink)
-            sbOption.push({
+            {
                 "id": 1,
                 "title": "My Feed",
                 "link": "/feed",
                 "iconClass": "fa-solid fa-house-user"
-            })
-            sbOption.push({
+            },
+            {
                 "id": 2,
                 "title": "My Profile",
                 "link": profileLink ?? `/user/${localStorage.getItem('username')}`,
                 "iconClass": "fa-solid fa-user"
-            })
-        }
+            }
+        ]
+        // if (isLogin) {
+        //     console.log(profileLink)
+        //     sbOption.push({
+        //         "id": 1,
+        //         "title": "My Feed",
+        //         "link": "/feed",
+        //         "iconClass": "fa-solid fa-house-user"
+        //     })
+        //     sbOption.push({
+        //         "id": 2,
+        //         "title": "My Profile",
+        //         "link": profileLink ?? `/user/${localStorage.getItem('username')}`,
+        //         "iconClass": "fa-solid fa-user"
+        //     })
+        // }
         setSideBarOptions(sbOption)
        
     }, [isLogin, profileLink])
@@ -72,7 +85,12 @@ export default function SideBar({ isLogin, profileLink, setIsLogin }) {
                         className={"sidebar-option" + (selectedOption === item.id ? " blue-option" : " gray-option cursor-pointer")}
                         onClick={() => {
                             if (router.pathname !== item.link) {
-                                router.push(item.link)
+                                if ((idx === 1 || idx === 2) && !isLogin) {
+                                    setLoginModalVisible(true)
+                                }
+                                else {
+                                    router.push(item.link)
+                                }
                             }
                         }}
                     >
@@ -103,6 +121,17 @@ export default function SideBar({ isLogin, profileLink, setIsLogin }) {
                     </div>
                 </Popconfirm>
             }
+            <Modal
+				visible={loginModalVisible}
+				okText={"Login"}
+				onOk={() => {
+					router.push("/login")
+				}}
+				onCancel={() => { setLoginModalVisible(false)}}
+				cancelText={"Skip"}
+			>
+				<div>Please Login to perform this action</div>
+			</Modal>
         </div>
     )
 }

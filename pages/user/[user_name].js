@@ -19,6 +19,7 @@ export default function User(props) {
     const [showFollowersModal, setShowFollowersModal] = useState(false)
     const [listTitle, setListTitle] = useState('Followers')
     const [modalList, setModalList] = useState([])
+    const [loginModalVisible, setLoginModalVisible] = useState(false);
     const router = useRouter()
     const { query } = useRouter()
 
@@ -88,6 +89,10 @@ export default function User(props) {
     }
 
     const followUser = () => {
+        if (!props.isLogin) {
+            setLoginModalVisible(true)
+            return
+        }
         let api = Utils.getApiEndpoint('follow-user')
         let body = {
             "id": userInfo.id 
@@ -105,9 +110,9 @@ export default function User(props) {
     }
 
     const showUserListModal = (listType) => {
-        setModalList(listType === 'followers' ? followersList : followingsList)
-        setListTitle(listType === 'followers' ? "Followers" : "Followings")
-        setShowFollowersModal(true)
+            setModalList(listType === 'followers' ? followersList : followingsList)
+            setListTitle(listType === 'followers' ? "Followers" : "Followings")
+            setShowFollowersModal(true)
     }
 
     return (
@@ -204,6 +209,17 @@ export default function User(props) {
                             </div>
                         }
                     </div>
+                </Modal>
+                <Modal
+                    visible={loginModalVisible}
+                    okText={"Login"}
+                    onOk={() => {
+                        router.push("/login")
+                    }}
+                    onCancel={() => { setLoginModalVisible(false)}}
+                    cancelText={"Skip"}
+                >
+                    <div>Please Login to perform this action</div>
                 </Modal>
 			</div>
 		</div>

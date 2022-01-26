@@ -30,3 +30,9 @@
 .login-box input:focus {
     border: 1px solid #2c8dce;
 }
+.sign-up-text {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+}

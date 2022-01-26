@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import jwt_decode from 'jwt-decode'
 import Cookies from 'universal-cookie';
+import Link from 'next/link';
 
 export default function Login (props) {
     const [username, setUsername] = useState('')
@@ -87,6 +88,7 @@ export default function Login (props) {
                 <div className='mt-5 mx-auto fit-content'>
                     <Button type='primary' size='middle' onClick={(e) => submitLoginDetails()}>Login</Button>
                 </div>
+                <div className='sign-up-text'>Don't have an account? <Link href="/create-account"><a className='blue-fonts'>Sign up</a></Link> here.</div>
             </div>
         </div>
     )

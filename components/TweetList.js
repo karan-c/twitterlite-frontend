@@ -189,7 +189,15 @@ export default function TweetList({ tweetList, isLogin, hideCreateBlock, fetchTw
                         isDummy={false}
                         reTweet={retweetClick}
                     />
-                )}
+				)}
+				{tweetList.length === 0 && <div className="no-data">
+					<div className="icon">
+						<i className="fas fa-search"></i>
+					</div>
+					<div className="text">
+						Nothing to show here.
+					</div>
+				</div>}
 			</div>
 			{tweetLoading && <div className="lds-ripple"><div></div><div></div></div>}
             <Modal
