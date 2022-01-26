@@ -18,9 +18,9 @@ export default function Tweet({ tweetData, likeTweet, reTweet, depthIndex, isDum
                 </div>
             </div>
             <div className='tweet-right-block'>
-                <div className='d-flex align-items-end'>
+                <div className='username-outer-layout'>
                     <Link href={`/user/${tweetData.user.user_name}`}>
-                        <a className='d-flex align-items-end'>
+                        <a className='username-inner-layout'>
                             <div className='user-full-name'>
                                 {`${tweetData.user.first_name} ${tweetData.user.last_name}`}
                             </div>
@@ -38,8 +38,8 @@ export default function Tweet({ tweetData, likeTweet, reTweet, depthIndex, isDum
                 <div className='tweet-text'>
                     {tweetData.content}
                 </div>
-                {'image' in tweetData && tweetData.image && <div className='image-block' >
-                    <Image src={tweetData.image} layout='fill' objectFit='contain' />
+                {'image' in tweetData && tweetData.image && <div className='image-cover'>
+                    <img src={tweetData.image} className="tweet-image" />
                 </div>}
                 {depthIndex <= 1 && <div>
                     {tweetData.retweet_obj &&

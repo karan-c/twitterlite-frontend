@@ -54,6 +54,15 @@
     font-size: 14px;
     font-weight: 700;
 }
+.tweet-block .image-cover {
+    border-radius: 6px;
+    margin-top: 10px;
+}
+.tweet-block .tweet-image {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+}
 .tweet-block .image-block {
     width: 100%;
     position: relative;
@@ -73,4 +82,17 @@
 .tweet-right-block {
     margin-left: 5px;
     padding-top: 2px;
+}
+
+@media screen and (max-width: 768px) {
+    
+    .tweet-block .user-full-name {
+        font-size: 14px;
+    }
+    .tweet-block .username , .tweet-block .date {
+        font-size: 11px;
+    }
+    .tweet-block .image-block {
+        height: 200px;
+    }
 }

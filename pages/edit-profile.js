@@ -118,12 +118,12 @@ export default function EditProfile(props) {
         <div className="edit-profile-container">
             <div className="container">
                 <div className='row'>
-					<div className='col-xl-3 col-lg-3 col-md-2 col-sm-2 col-xs-2'>
+					<div className='col-xl-3 col-lg-3 col-md-2 col-sm-0 col-xs-0 display-desktop'>
 						<div className='sticky-div'>
 							<SideBar isLogin={props.isLogin} profileLink={sideBarLink} setIsLogin={props.setIsLogin}/>
 						</div>
 					</div>
-                    <div className='col-xl-5 col-lg-5 col-md-10 col-sm-10 col-xs-10'>
+                    <div className='col-xl-6 col-lg-6 col-md-10 col-sm-12 col-xs-12'>
                         <div className="ep-title">Edit Profile</div>
                         <div className="ep-form">
                             <div className="field-div">
@@ -179,7 +179,10 @@ export default function EditProfile(props) {
                             </div>
                         </div>
 					</div>
-					<div className='col-xl-4 col-lg-4 col-md-0 col-sm-0 col-xs-0'>
+					<div className='col-xl-3 col-lg-3 col-md-0 col-sm-0 col-xs-0 display-desktop'>
+						<div className='static-block sticky-div'>
+
+						</div>
 					</div>
 				</div>
             </div>

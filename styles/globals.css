@@ -31,8 +31,16 @@ a {
 .blue-fonts {
   color: #1e7cbb;
 }
+.display-desktop { display: block; }
+.display-mobile { display: none; }
 
-/* loader */
+@media screen and (max-width: 768px) {
+  .display-desktop { display: none; }
+  .display-mobile { display: block; }
+}
+
+
+/*--------------------- loader ----------------------------*/
 .lds-ripple {
   position: relative;
   width: 70px;

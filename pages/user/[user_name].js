@@ -100,8 +100,10 @@ export default function User(props) {
         axios.post(api, body).then(res => {
             if (res.status === 200) {
                 let tmpUserInfo = { ...userInfo }
+                tmpUserInfo.followers_count += tmpUserInfo.already_following ? -1 : 1
                 tmpUserInfo.already_following = !tmpUserInfo.already_following
                 setUserInfo(tmpUserInfo)
+                fetchFollowers()
             }
         }).catch(err => {
             console.log(err)
@@ -110,21 +112,21 @@ export default function User(props) {
     }
 
     const showUserListModal = (listType) => {
-            setModalList(listType === 'followers' ? followersList : followingsList)
-            setListTitle(listType === 'followers' ? "Followers" : "Followings")
-            setShowFollowersModal(true)
+        setModalList(listType === 'followers' ? followersList : followingsList)
+        setListTitle(listType === 'followers' ? "Followers" : "Followings")
+        setShowFollowersModal(true)
     }
 
     return (
         <div className='user-container'>
 			<div className='container'>
 				<div className='row'>
-					<div className='col-xl-3 col-lg-3 col-md-2 col-sm-2 col-xs-2'>
+					<div className='col-xl-3 col-lg-3 col-md-2 col-sm-0 col-xs-0 display-desktop'>
 						<div className='sticky-div'>
 							<SideBar isLogin={props.isLogin} setIsLogin={props.setIsLogin}/>
 						</div>
 					</div>
-					<div className='col-xl-5 col-lg-5 col-md-10 col-sm-10 col-xs-10'>
+					<div className='col-xl-6 col-lg-6 col-md-10 col-sm-12 col-xs-12'>
                         {userInfo !== null && <div className="user-info-block">
                             <div className="user-top-section">
                                 <div className="top-left">
@@ -171,7 +173,10 @@ export default function User(props) {
 							setTweetList={setTweetList}
                         />
 					</div>
-					<div className='col-xl-4 col-lg-4 col-md-0 col-sm-0 col-xs-0'>
+					<div className='col-xl-3 col-lg-3 col-md-0 col-sm-0 col-xs-0 display-desktop'>
+						<div className='static-block sticky-div'>
+
+						</div>
 					</div>
                 </div>
                 <Modal
@@ -187,7 +192,10 @@ export default function User(props) {
                                 <div className="icon cursor-pointer" onClick={() => {
                                     router.push(`/user/${item.user_name}`)
                                 }}>
-                                    <i className='fa-solid fa-user user-icon-color'></i>
+                                    {item.profile_pic
+                                        ? <Image src={item.profile_pic} width={40} height={40} className="user-dp" /> 
+                                        : <i className='fa-solid fa-user user-icon-color'></i>
+                                    }
                                 </div>
                                     <div className="user-row-right">
                                         <div className="cursor-pointer" onClick={() => {

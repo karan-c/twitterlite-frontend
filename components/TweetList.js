@@ -17,7 +17,7 @@ export default function TweetList({ tweetList, isLogin, hideCreateBlock, fetchTw
     const { TextArea } = Input
     const router = useRouter()
 	const editBox = useRef()
-	const tweetBoardRef = useRef()
+	const textareaRef = useRef()
 
     const likeTweet = (tweetId, isLiked) => {
 		if (!isLogin) {
@@ -154,6 +154,7 @@ export default function TweetList({ tweetList, isLogin, hideCreateBlock, fetchTw
 			{isLogin && !hideCreateBlock && <div className='create-tweet-block'>
 				<div className="edit-box" ref={editBox}>
 					<TextArea
+						ref={textareaRef}
 						autoSize={{ minRows : 3 }}
 						placeholder={`What's Happening?`}
 						value={tweetText}
@@ -166,12 +167,16 @@ export default function TweetList({ tweetList, isLogin, hideCreateBlock, fetchTw
 							editBox.current.className = 'edit-box'
 						}}
 					/>
-					<div className="upload-block">
+					<div className="upload-block" onClick={() => {
+						textareaRef.current.focus()
+					}}>
 						{imageBase64 && <div className="image-preview">
 							<Image src={imageBase64} layout="fill" objectFit="contain" />
 						</div>}
 						<input type={'file'} id="image-input" style={{ display: "none" }} onChange={onImageUpload} />
-						<i className="fa-regular fa-image cursor-pointer" onClick={() => {document.getElementById('image-input').click() }}></i>
+						<i className="fa-regular fa-image cursor-pointer" onClick={(e) => {
+							document.getElementById('image-input').click()
+						}}></i>
 					</div>
 				</div>
                 {showTweetErr && tweetText === '' && <div className='err-msg'>*This field cannot be empty</div>}
