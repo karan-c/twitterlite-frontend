@@ -7,6 +7,7 @@ import { Utils } from "../../utils/utils"
 import { Modal } from "antd"
 import Link from "next/link"
 import Image from "next/image"
+import FloatingMenu from "../../components/FloatingMenu"
 
 export default function User(props) {
     const [username, setUsername] = useState(null)
@@ -179,6 +180,7 @@ export default function User(props) {
 						</div>
 					</div>
                 </div>
+				<FloatingMenu isLogin={props.isLogin} setIsLogin={props.setIsLogin}/>
                 <Modal
                     visible={showFollowersModal}
                     onCancel={() => setShowFollowersModal(false)}

@@ -29,21 +29,6 @@ export default function SideBar({ isLogin, profileLink, setIsLogin }) {
                 "iconClass": "fa-solid fa-user"
             }
         ]
-        // if (isLogin) {
-        //     console.log(profileLink)
-        //     sbOption.push({
-        //         "id": 1,
-        //         "title": "My Feed",
-        //         "link": "/feed",
-        //         "iconClass": "fa-solid fa-house-user"
-        //     })
-        //     sbOption.push({
-        //         "id": 2,
-        //         "title": "My Profile",
-        //         "link": profileLink ?? `/user/${localStorage.getItem('username')}`,
-        //         "iconClass": "fa-solid fa-user"
-        //     })
-        // }
         setSideBarOptions(sbOption)
        
     }, [isLogin, profileLink])

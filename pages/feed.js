@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Utils } from '../utils/utils';
 import SideBar from '../components/SideBar';
 import TweetList from '../components/TweetList';
+import FloatingMenu from '../components/FloatingMenu';
 
 export default function Feed(props){
 	const [tweetList, setTweetList] = useState([])
@@ -54,6 +55,7 @@ export default function Feed(props){
 						</div>
 					</div>
 				</div>
+				<FloatingMenu isLogin={props.isLogin} setIsLogin={props.setIsLogin}/>
 			</div>
 		</div>
 	)

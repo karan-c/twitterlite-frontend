@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import SideBar from "../components/SideBar";
 import { Utils } from "../utils/utils";
 import Image from "next/image";
+import FloatingMenu from "../components/FloatingMenu";
 
 export default function EditProfile(props) {
     const [isLoading, setIsLoading] = useState(false)
@@ -184,7 +185,8 @@ export default function EditProfile(props) {
 
 						</div>
 					</div>
-				</div>
+                </div>
+                <FloatingMenu isLogin={props.isLogin} setIsLogin={props.setIsLogin} profileLink={sideBarLink}/>
             </div>
         </div>
     )
