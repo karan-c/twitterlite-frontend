@@ -45,7 +45,7 @@ export default function Home(props){
 	}
 
 	const handleOnScroll = () => {
-		if (!isLastPage) {
+		if (!isLastPage && tweetList.length > 0) {
 			if (document.body.offsetHeight + Math.round(window.scrollY) === document.body.scrollHeight) {
 				setActivePage(activePage => activePage + 1)
 			}

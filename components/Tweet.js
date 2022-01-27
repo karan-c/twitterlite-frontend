@@ -41,7 +41,7 @@ export default function Tweet({ tweetData, likeTweet, reTweet, depthIndex, isDum
                 {'image' in tweetData && tweetData.image && <div className='image-cover'>
                     <img src={tweetData.image} className="tweet-image" />
                 </div>}
-                {depthIndex <= 1 && <div>
+                {depthIndex < 1 && <div>
                     {tweetData.retweet_obj &&
                         <Tweet
                             tweetData={tweetData.retweet_obj}

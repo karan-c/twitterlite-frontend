@@ -1,4 +1,4 @@
-import { Input, Modal, notification } from "antd";
+import { Button, Input, Modal, notification } from "antd";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { Utils } from "../utils/utils";
@@ -14,6 +14,8 @@ export default function TweetList({ tweetList, isLogin, hideCreateBlock, fetchTw
 	const [loginModalVisible, setLoginModalVisible] = useState(false)
 	const [reTweetData, setRetweetData] = useState(null)
 	const [imageBase64, setImageBase64] = useState(null)
+	const [tweetCreateLoading, setTweetCreateLoading] = useState(false);
+	const [retweetLoading, setRetweetLoading] = useState(false);
     const { TextArea } = Input
     const router = useRouter()
 	const editBox = useRef()
@@ -69,6 +71,7 @@ export default function TweetList({ tweetList, isLogin, hideCreateBlock, fetchTw
 	}
 
 	const retweetSubmit = () => {
+		setRetweetLoading(true)
 		let api = Utils.getApiEndpoint('retweet')
 		let body = {
 			"tweet_id": reTweetData.id,
@@ -77,17 +80,25 @@ export default function TweetList({ tweetList, isLogin, hideCreateBlock, fetchTw
 		axios.post(api, body).then(res => {
 			if (res.status === 200) {
 				notification.success({ message: "Re-Tweeted successfully!", duration: 2 })
-				fetchTweets()
+				handleAfterTweet(res.data)
 			}
 			else {
 				notification.error({message: "Something went wrong!", duration: 2})
 			}
 			defaultRetweetData()
+			setRetweetLoading(false)
 		}).catch(err => {
+			setRetweetLoading(false)
 			defaultRetweetData()
 			console.log(err)
 			alert("Something went wrong")
 		})
+	}
+
+	const handleAfterTweet = (tweetObj) => {
+		let tmpList = tweetList.slice()
+		tmpList.unshift(tweetObj)
+		setTweetList(tmpList)
 	}
 
 	const defaultRetweetData = () => {
@@ -101,6 +112,7 @@ export default function TweetList({ tweetList, isLogin, hideCreateBlock, fetchTw
 			setShowTweetErr(true)
 			return
 		}
+		setTweetCreateLoading(true)
 		let api = Utils.getApiEndpoint('create-tweet')
 		let body = {
 			"content": tweetText
@@ -110,13 +122,15 @@ export default function TweetList({ tweetList, isLogin, hideCreateBlock, fetchTw
 		}
 		axios.post(api, body).then(res => {
 			if (res.status === 200) {
-				fetchTweets()
+				handleAfterTweet(res.data)
 				setTweetText('')
 				setShowTweetErr(false)
 				notification.success({ "message": "Tweet created successfully!", duration: 2 })
 				setImageBase64(null)
 			}
+			setTweetCreateLoading(false)
 		}).catch(err => {
+			setTweetCreateLoading(false)
 			setImageBase64(null)
 			console.log(err)
 			alert("Something went wrong!")
@@ -185,7 +199,14 @@ export default function TweetList({ tweetList, isLogin, hideCreateBlock, fetchTw
 				</div>
                 {showTweetErr && tweetText === '' && <div className='err-msg'>*This field cannot be empty</div>}
                 <div className='d-flex justify-content-end'>
-                    <button className='tweet-button' onClick={() => createTweet()}>Tweet</button>
+					<Button
+						shape="round"
+						className='tweet-button'
+						onClick={() => createTweet()}
+						loading={tweetCreateLoading}
+					>
+						Tweet
+					</Button>
                 </div>
             </div>}
 			<div className='tweet-board'>
@@ -199,7 +220,7 @@ export default function TweetList({ tweetList, isLogin, hideCreateBlock, fetchTw
                         reTweet={retweetClick}
                     />
 				)}
-				{tweetList.length === 0 && <div className="no-data">
+				{!tweetLoading && tweetList.length === 0 && <div className="no-data">
 					<div className="icon">
 						<i className="fas fa-search"></i>
 					</div>
@@ -244,7 +265,7 @@ export default function TweetList({ tweetList, isLogin, hideCreateBlock, fetchTw
 					/>
 				</div>
 				<div className='d-flex justify-content-end'>
-					<button className='tweet-button' onClick={() => retweetSubmit()}>Retweet</button>
+					<Button shape="round"  className='tweet-button' onClick={() => retweetSubmit()}>Retweet</Button>
 				</div>
 			</Modal>
         </div>
