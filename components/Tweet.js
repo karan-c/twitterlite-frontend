@@ -47,7 +47,7 @@ export default function Tweet({ tweetData, likeTweet, reTweet, depthIndex, isDum
                             tweetData={tweetData.retweet_obj}
                             likeTweet={likeTweet}
                             depthIndex={depthIndex + 1}
-                            isDummy={true}
+                            isDummy={isDummy}
                             reTweet={reTweet}
                         />}
                 </div>}

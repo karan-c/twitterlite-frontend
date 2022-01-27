@@ -50,6 +50,10 @@ export default function TweetList({ tweetList, isLogin, hideCreateBlock, fetchTw
 				item.is_liked = !item.is_liked		
 				item.likes = item.likes + (action)
 			}
+			if (item.retweet_obj && item.retweet_obj.id === tweetId) {
+				item.retweet_obj.is_liked = !item.retweet_obj.is_liked		
+				item.retweet_obj.likes = item.retweet_obj.likes + (action)
+			}
 			return item
 		})
 		setTweetList(tmpList)
