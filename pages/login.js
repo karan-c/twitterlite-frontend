@@ -92,7 +92,7 @@ export default function Login(props) {
                 <div className='mt-5 mx-auto fit-content'>
                     <Button type='primary' size='middle' onClick={(e) => submitLoginDetails()} loading={isLoading}>Login</Button>
                 </div>
-                <div className='sign-up-text'>Don't have an account? <Link href="/create-account"><a className='blue-fonts'>Sign up</a></Link> here.</div>
+                <div className='sign-up-text'>Don&apos;t have an account? <Link href="/create-account"><a className='blue-fonts'>Sign up</a></Link> here.</div>
             </div>
         </div>
     )

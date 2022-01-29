@@ -148,7 +148,7 @@ export default function User(props) {
                                         router.push('/edit-profile')
                                     }}>
                                         <i className="fa-solid fa-pen"></i>
-                                        &nbsp;Edit Pofile
+                                        <span className="button-text">&nbsp;Edit Pofile</span>
                                     </div>
                                     : <div
                                         className="edit-block"
@@ -156,7 +156,7 @@ export default function User(props) {
                                             followUser()
                                         }}>
                                         <i className={"fa-solid fa-user-" + (!userInfo.already_following ? "plus": "minus")}></i>
-                                        &nbsp;{userInfo.already_following ? "Unfollow" : "Follow"}
+                                        <span className="button-text">&nbsp;{userInfo.already_following ? "Unfollow" : "Follow"}</span>
                                     </div>}
                             </div>
                             <div className="bio">{userInfo.bio}</div>
@@ -190,7 +190,7 @@ export default function User(props) {
                 >
                     <div className="user-list">
                         {modalList.map(item => 
-                            <div className="user-row">
+                            <div className="user-row" key={item.user_name}>
                                 <div className="icon cursor-pointer" onClick={() => {
                                     router.push(`/user/${item.user_name}`)
                                 }}>
@@ -215,7 +215,7 @@ export default function User(props) {
                         )}
                         {modalList.length === 0 && 
                             <div className="no-data-div">
-                                <i class="fa-solid fa-magnifying-glass mx-1"></i> No data found
+                                <i className="fa-solid fa-magnifying-glass mx-1"></i> No data found
                             </div>
                         }
                     </div>

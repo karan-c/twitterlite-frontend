@@ -107,6 +107,7 @@
 @media screen and (max-width: 768px) {
     .user-top-section .top-left {
         width: 70%;
+        column-gap: 7px;
     }
 }
 @media screen and (max-width: 576px) {
@@ -114,7 +115,27 @@
         flex-direction: column;
         align-items: flex-start;
     }
+    .user-top-section .top-left {
+        width: 80%;
+    }
     .center-dot {
         display: none;
     }
+    .user-info-block .profile-pic .user-dp {
+        width: 45px;
+        height: 45px;
+    }
+    .user-info-block .profile-pic {
+        font-size: 45px;
+        line-height: 45px;
+    }
+    .user-info-block .edit-block {
+        font-size: 14px;
+        line-height: 14px;
+        padding: 10px;
+        border-radius: 50%;
+    }
+    .user-info-block .edit-block .button-text{
+        display: none;
+    }   
 }
