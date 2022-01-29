@@ -5,7 +5,8 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import Cookies from 'universal-cookie';
 
-export default function Login (props) {
+export default function Login(props) {
+    const [isLoading, setIsLoading] = useState(false);
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
@@ -32,6 +33,7 @@ export default function Login (props) {
         if (!validateData()) {
             return
         }
+        setIsLoading(true)
         let api = Utils.getApiEndpoint('create-account')
         let body = {
             "user_name": username,
@@ -44,7 +46,9 @@ export default function Login (props) {
                 cookie.set('show_register_msg', true)
                 router.push('/login')   
             }
+            setIsLoading(false)
         }).catch(err => {
+            setIsLoading(false)
             console.log(err.response);
             if (err.response.status === 400) {
                 let alertmsg = 'Please solve following issues\r\n'
@@ -84,7 +88,7 @@ export default function Login (props) {
                 {showErrMag && confirmPassword === '' && <div className='err-msg'>*Please provide password</div>}
                 {showErrMag && confirmPassword !== password && <div className='err-msg'>*Password does not match</div>}
                 <div className='mt-5 mx-auto fit-content'>
-                    <Button type='primary' size='middle' onClick={(e) => submitCreateAccount()}>Create Account</Button>
+                    <Button type='primary' size='middle' onClick={(e) => submitCreateAccount()} loading={isLoading}>Create Account</Button>
                 </div>
             </div>
         </div>

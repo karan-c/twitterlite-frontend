@@ -265,7 +265,7 @@ export default function TweetList({ tweetList, isLogin, hideCreateBlock, fetchTw
 					/>
 				</div>
 				<div className='d-flex justify-content-end'>
-					<Button shape="round"  className='tweet-button' onClick={() => retweetSubmit()}>Retweet</Button>
+					<Button shape="round" className='tweet-button' loading={retweetLoading} onClick={() => retweetSubmit()}>Retweet</Button>
 				</div>
 			</Modal>
         </div>

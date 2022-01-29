@@ -39,6 +39,7 @@ export default function EditProfile(props) {
     }, [userId])
 
     const fetchUserInfo = () => {
+        setIsLoading(true)
         let api = Utils.getApiEndpoint('user-details') + userId + '/'
         axios.get(api).then(res => {
             setUserInfo(res.data)
@@ -47,7 +48,9 @@ export default function EditProfile(props) {
             setLastname(res.data.last_name)
             setBio(res.data.bio)
             setProfileUrl(res.data.profile_pic)
+            setIsLoading(false)
         }).catch(err => {
+            setIsLoading(false)
             console.log(err);
             alert("Something went wrong! Please try again later.")
         })
@@ -61,6 +64,7 @@ export default function EditProfile(props) {
             setShowErr(true)
             return
         }
+        setIsLoading(true)
         let api = Utils.getApiEndpoint('update-user')
         let body = {
             "id": userInfo.id,
@@ -80,7 +84,9 @@ export default function EditProfile(props) {
                 notification.success({ message: "Information updated successfully!", duration: 3 })
                 setSideBarLink(`/user/${username}`)
             }
+            setIsLoading(false)
         }).catch(err => {
+            setIsLoading(false)
             alert(err.response.data.message ?? "Something went wrong")
             console.log(err)
         })
@@ -176,7 +182,7 @@ export default function EditProfile(props) {
                                 </div>
                             </div>
                             <div className="mx-auto fit-content mt-3">
-                                <Button type="primary" size="middle" onClick={() => updateDetails()}>Save</Button>
+                                <Button type="primary" size="middle" loading={isLoading} onClick={() => updateDetails()}>Save</Button>
                             </div>
                         </div>
 					</div>

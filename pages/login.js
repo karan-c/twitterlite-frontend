@@ -7,7 +7,8 @@ import jwt_decode from 'jwt-decode'
 import Cookies from 'universal-cookie';
 import Link from 'next/link';
 
-export default function Login (props) {
+export default function Login(props) {
+    const [isLoading, setIsLoading] = useState(false);
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [showErrMag, setShowErrMag] = useState(false)
@@ -29,6 +30,7 @@ export default function Login (props) {
             setShowErrMag(true)
             return
         }
+        setIsLoading(true)
         let api = Utils.getApiEndpoint('login')
         let body = {
             "user_name": username,
@@ -42,7 +44,9 @@ export default function Login (props) {
             else {
                 alert("Username or Password is invalid")
             }
+            setIsLoading(false)
         }).catch(err => {
+            setIsLoading(false)
             console.log(err);
             alert("Username or Password is invalid")
         })
@@ -86,7 +90,7 @@ export default function Login (props) {
                 <input type="password" value={password} onChange={(e) => { setPassword(e.target.value) }} onKeyDown={handlePasswordKeyDown}/>
                 {showErrMag && password === '' && <div className='err-msg'>*Please provide password</div>}
                 <div className='mt-5 mx-auto fit-content'>
-                    <Button type='primary' size='middle' onClick={(e) => submitLoginDetails()}>Login</Button>
+                    <Button type='primary' size='middle' onClick={(e) => submitLoginDetails()} loading={isLoading}>Login</Button>
                 </div>
                 <div className='sign-up-text'>Don't have an account? <Link href="/create-account"><a className='blue-fonts'>Sign up</a></Link> here.</div>
             </div>

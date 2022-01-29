@@ -2,8 +2,8 @@ import axios from "axios";
 
 export class Utils {
     static getApiEndpoint(signature) {
-        // let gatewayPath = 'https://karanc.pythonanywhere.com/api/'
-        let gatewayPath = 'http://127.0.0.1:8000/api/'
+        let gatewayPath = 'https://karanc.pythonanywhere.com/api/'
+        // let gatewayPath = 'http://127.0.0.1:8000/api/'
         let token = localStorage.getItem('access_token');
         if (token) {
             axios.defaults.headers.common['Authorization'] = "Bearer " + token
