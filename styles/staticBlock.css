@@ -2,7 +2,7 @@
     width: 100%;
     border: 1px solid #352064;
     border-radius: 4px;
-    background: #41295a;  /* fallback for old browsers */
+    background: #41295a;
     background: -webkit-linear-gradient(to right, #50126e, #523572);  
     background: linear-gradient(to right, #4e0c6e, #563777); 
     color: white;
