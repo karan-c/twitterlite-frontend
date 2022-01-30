@@ -36,3 +36,18 @@
     font-size: 12px;
     font-weight: 600;
 }
+
+@media screen and (max-width: 768px) {
+    .login-box {
+        max-width: 95%;
+    }
+    .login-box .title {
+        font-size: 18px;
+    }
+    .login-box .label {
+        font-size: 14px;
+    }
+    .login-box input {
+        font-size: 16px;
+    }
+}
