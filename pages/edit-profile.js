@@ -6,6 +6,7 @@ import SideBar from "../components/SideBar";
 import { Utils } from "../utils/utils";
 import Image from "next/image";
 import FloatingMenu from "../components/FloatingMenu";
+import StaticBlock from "../components/StaticBlock";
 
 export default function EditProfile(props) {
     const [isLoading, setIsLoading] = useState(false)
@@ -187,9 +188,7 @@ export default function EditProfile(props) {
                         </div>
 					</div>
 					<div className='col-xl-3 col-lg-3 col-md-0 col-sm-0 col-xs-0 display-desktop'>
-						<div className='static-block sticky-div'>
-
-						</div>
+                        <StaticBlock />
 					</div>
                 </div>
                 <FloatingMenu isLogin={props.isLogin} setIsLogin={props.setIsLogin} profileLink={sideBarLink}/>

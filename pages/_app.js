@@ -7,6 +7,7 @@ import '../styles/sidebar.css';
 import '../styles/user.css';
 import '../styles/editProfile.css';
 import '../styles/floatingIcon.css';
+import '../styles/staticBlock.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'antd/dist/antd.css';
 import { useEffect, useState } from 'react';

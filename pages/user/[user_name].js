@@ -8,6 +8,7 @@ import { Modal } from "antd"
 import Link from "next/link"
 import Image from "next/image"
 import FloatingMenu from "../../components/FloatingMenu"
+import StaticBlock from "../../components/StaticBlock"
 
 export default function User(props) {
     const [username, setUsername] = useState(null)
@@ -175,9 +176,7 @@ export default function User(props) {
                         />
 					</div>
 					<div className='col-xl-3 col-lg-3 col-md-0 col-sm-0 col-xs-0 display-desktop'>
-						<div className='static-block sticky-div'>
-
-						</div>
+						<StaticBlock />
 					</div>
                 </div>
 				<FloatingMenu isLogin={props.isLogin} setIsLogin={props.setIsLogin}/>

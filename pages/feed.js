@@ -4,6 +4,7 @@ import { Utils } from '../utils/utils';
 import SideBar from '../components/SideBar';
 import TweetList from '../components/TweetList';
 import FloatingMenu from '../components/FloatingMenu';
+import StaticBlock from '../components/StaticBlock';
 
 export default function Feed(props){
 	const [tweetList, setTweetList] = useState([])
@@ -50,9 +51,7 @@ export default function Feed(props){
 						/>
 					</div>
 					<div className='col-xl-3 col-lg-3 col-md-0 col-sm-0 col-xs-0 display-desktop'>
-						<div className='static-block sticky-div'>
-
-						</div>
+						<StaticBlock />
 					</div>
 				</div>
 				<FloatingMenu isLogin={props.isLogin} setIsLogin={props.setIsLogin}/>
