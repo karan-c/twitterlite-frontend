@@ -165,6 +165,23 @@ export default function TweetList({ tweetList, isLogin, hideCreateBlock, fetchTw
 			}
 		}
 	}
+	
+	const deleteTweet = (tweetId) => {
+		let api = Utils.getApiEndpoint('delete-tweet')  + tweetId + '/'
+		axios.delete(api).then(res => {
+			handleAfterDelete(tweetId)
+		}).catch(err => {
+			console.log(err)
+			alert("Something went wrong! Please try again later.")
+		})
+	}
+
+	const handleAfterDelete = (tweetId) => {
+		let tmpList = tweetList.slice()
+		tmpList = tmpList.filter(item => item.id !== tweetId)
+		setTweetList(tmpList)
+		notification.success({message: "Tweet Deleted successfully"})
+	}
 
 	return (
 		
@@ -212,12 +229,13 @@ export default function TweetList({ tweetList, isLogin, hideCreateBlock, fetchTw
 			<div className='tweet-board'>
                 {tweetList.map((item, idx) => 
                     <Tweet 
-                        tweetData={item}
-                        key={"tweet_" + idx}
-                        likeTweet={likeTweet}
-                        depthIndex={0}
-                        isDummy={false}
-                        reTweet={retweetClick}
+						tweetData={item}
+						key={"tweet_" + idx}
+						likeTweet={likeTweet}
+						depthIndex={0}
+						isDummy={false}
+						reTweet={retweetClick}
+						deleteTweet={deleteTweet}
                     />
 				)}
 				{!tweetLoading && tweetList.length === 0 && <div className="no-data">
@@ -258,10 +276,11 @@ export default function TweetList({ tweetList, isLogin, hideCreateBlock, fetchTw
 				<div style={{ marginTop: "-10px" }}>
 					<Tweet
 						tweetData={reTweetData}
-						likeTweet={likeTweet}	
+						likeTweet={likeTweet}
 						reTweet={retweetClick}
 						depthIndex={0}
 						isDummy={true}
+						deleteTweet={deleteTweet}
 					/>
 				</div>
 				<div className='d-flex justify-content-end'>

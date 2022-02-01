@@ -2,8 +2,18 @@ import moment from 'moment'
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { Popconfirm } from 'antd'
 
-export default function Tweet({ tweetData, likeTweet, reTweet, depthIndex, isDummy }){
+export default function Tweet({ tweetData, likeTweet, reTweet, depthIndex, isDummy, deleteTweet }){
+    const [showDeleteIcon, setShowDeleteIcon] = useState(false);
+
+    useEffect(() => {
+        let localUsername = localStorage.getItem('username')
+        if (localUsername && localUsername === tweetData.user.user_name && depthIndex === 0 && !isDummy) {
+            setShowDeleteIcon(true)
+        }
+    }, [tweetData])
+
     return (
         <div className='tweet-block'>
             <div>
@@ -65,6 +75,17 @@ export default function Tweet({ tweetData, likeTweet, reTweet, depthIndex, isDum
                     </div>
                 </div>
             </div>
+            {showDeleteIcon && <div className='delete-icon'>
+                <Popconfirm
+                    title={"Are you sure you want to delete this tweet?"}
+                    onConfirm={() => { deleteTweet(tweetData.id) }}
+                    okText="Yes"
+                    cancelText="No"
+                    placement="top"
+                >
+                    <i className='fa-solid fa-trash-can'></i>
+                </Popconfirm>
+            </div>}
         </div>
     )
 }

@@ -90,7 +90,7 @@ export default function SideBar({ isLogin, profileLink, setIsLogin }) {
             </div>
             {isLogin &&
                 <Popconfirm
-                    title={"Are you sure you want logout?"}
+                    title={"Are you sure you want to logout?"}
                     onConfirm={handleLogout}
                     okText="Yes"
                     cancelText="No"

@@ -9,6 +9,7 @@
     grid-template-columns: 35px calc(100% - 35px);
     margin-left: auto;
     margin-right: auto;
+    position: relative;
 }
 .tweet-block .user-icon {
     font-size: 22px;
@@ -82,6 +83,15 @@
 .tweet-right-block {
     margin-left: 5px;
     padding-top: 2px;
+}
+.tweet-block .delete-icon {
+    position: absolute;
+    top: 13px;
+    right: 13px;
+    font-size: 13px;
+    line-height: 13px;
+    color: #727272;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 768px) {

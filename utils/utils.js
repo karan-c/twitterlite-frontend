@@ -39,6 +39,8 @@ export class Utils {
                 return gatewayPath + 'followers-list/'
             case 'followings':
                 return gatewayPath + 'followings-list/'
+            case 'delete-tweet':
+                return gatewayPath + 'delete-tweet/'
             default:
                 return '';
         }
