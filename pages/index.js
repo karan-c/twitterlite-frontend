@@ -13,24 +13,15 @@ export default function Home(props){
 	const [isLastPage, setIsLastPage] = useState(false)
 
 	useEffect(() => {
+		window.addEventListener('scroll', handleOnScroll)
 		return () => {
 			window.removeEventListener('scroll', handleOnScroll)
 		}
-	}, [])
+	}, [tweetList, activePage, isLastPage, tweetLoading])
 
 	useEffect(() => {
 		fetchTweets()
 	}, [activePage])
-	
-	const addScrollListener = () => {
-		window.addEventListener('scroll', handleOnScroll)
-	}
-
-	useEffect(() => {
-		if (tweetList.length > 0 && activePage === 1) {
-			addScrollListener()
-		}
-	}, [tweetList, activePage])
 
 	const fetchTweets = async () => {
 		if (!isLastPage) {
@@ -58,15 +49,13 @@ export default function Home(props){
 	}
 
 	const handleOnScroll = () => {
-		if (!isLastPage && tweetList.length > 0) {
+		if (!isLastPage && tweetList.length > 0 && !tweetLoading) {
 			let totalScroll = document.body.offsetHeight + Math.round(window.scrollY)
 			let scrollHeight = document.body.scrollHeight
 			if (totalScroll === scrollHeight || totalScroll - 1 === scrollHeight || totalScroll + 1 === scrollHeight) {
-				// console.log(isLastPage, tweetList.length, document.body.offsetHeight + Math.round(window.scrollY), document.body.scrollHeight)
 				setActivePage(activePage => activePage + 1)
 			}
 		}
-		// console.log(document.body.offsetHeight + Math.round(window.scrollY), document.body.scrollHeight)
 	}
 	 
 
