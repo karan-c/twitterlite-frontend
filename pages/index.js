@@ -13,15 +13,24 @@ export default function Home(props){
 	const [isLastPage, setIsLastPage] = useState(false)
 
 	useEffect(() => {
-		window.addEventListener('scroll', handleOnScroll, false)
 		return () => {
-			window.removeEventListener('scroll', handleOnScroll, false)
+			window.removeEventListener('scroll', handleOnScroll)
 		}
 	}, [])
 
 	useEffect(() => {
 		fetchTweets()
 	}, [activePage])
+	
+	const addScrollListener = () => {
+		window.addEventListener('scroll', handleOnScroll)
+	}
+
+	useEffect(() => {
+		if (tweetList.length > 0 && activePage === 1) {
+			addScrollListener()
+		}
+	}, [tweetList, activePage])
 
 	const fetchTweets = async () => {
 		if (!isLastPage) {
@@ -38,7 +47,10 @@ export default function Home(props){
 				setTweetLoading(false)
 			}
 			catch (err) {
-				alert("Something went wrong!")
+				if (err.response.status !== 404) {
+					alert("Something went wrong!")
+
+				}
 				setTweetLoading(false)
 				console.log(err)
 			}
@@ -47,12 +59,16 @@ export default function Home(props){
 
 	const handleOnScroll = () => {
 		if (!isLastPage && tweetList.length > 0) {
-			if (document.body.offsetHeight + Math.round(window.scrollY) === document.body.scrollHeight) {
+			let totalScroll = document.body.offsetHeight + Math.round(window.scrollY)
+			let scrollHeight = document.body.scrollHeight
+			if (totalScroll === scrollHeight || totalScroll - 1 === scrollHeight || totalScroll + 1 === scrollHeight) {
+				// console.log(isLastPage, tweetList.length, document.body.offsetHeight + Math.round(window.scrollY), document.body.scrollHeight)
 				setActivePage(activePage => activePage + 1)
 			}
 		}
 		// console.log(document.body.offsetHeight + Math.round(window.scrollY), document.body.scrollHeight)
-	} 
+	}
+	 
 
 	return(
 		<div className='feed-container'>

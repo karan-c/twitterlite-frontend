@@ -247,7 +247,7 @@ export default function TweetList({ tweetList, isLogin, hideCreateBlock, fetchTw
 					</div>
 				</div>}
 			</div>
-			{tweetLoading && <div className="lds-ripple"><div></div><div></div></div>}
+			{tweetLoading && <div className="loader-padding"><div className="lds-ripple"><div></div><div></div></div></div>}
             <Modal
 				visible={loginModalVisible}
 				okText={"Login"}

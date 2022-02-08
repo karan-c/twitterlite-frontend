@@ -41,6 +41,9 @@ a {
 
 
 /*--------------------- loader ----------------------------*/
+.loader-padding {
+  padding-bottom: 7rem;
+}
 .lds-ripple {
   position: relative;
   width: 70px;
