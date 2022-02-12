@@ -59,7 +59,9 @@ export default function SideBar({ isLogin, profileLink, setIsLogin }) {
         if (router.asPath.includes('/feed') || router.asPath.includes('/edit-profile')) {
             router.push('/')
         }
-        router.reload()
+        else {
+            router.reload()
+        }
     }
     return (
         <div className="sidebar-block">
