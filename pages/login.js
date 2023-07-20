@@ -25,11 +25,20 @@ export default function Login(props) {
         }
     }, [])
 
-    const submitLoginDetails = () => {
+    const validateLogin = () => {
         if (username === '' || password === '') {
             setShowErrMag(true)
             return
         }
+        submitLoginDetails(username, password)
+    }
+
+    const submitLoginDetails = (username, password) => {
+        if (username === '' || password === '') {
+            setShowErrMag(true)
+            return
+        }
+        console.log("here")
         setIsLoading(true)
         let api = Utils.getApiEndpoint('login')
         let body = {
@@ -79,6 +88,11 @@ export default function Login(props) {
             alert("Something went wrong! Please try again.")
         })
     }
+
+    const testUserLogin = async () => {
+        submitLoginDetails('testuser', '00001111')
+    }
+
     return(
         <div className='login-box'>
             <div className='title'>Login to continue</div>
@@ -89,8 +103,9 @@ export default function Login(props) {
                 <div className='label'>Password</div>
                 <input type="password" value={password} onChange={(e) => { setPassword(e.target.value) }} onKeyDown={handlePasswordKeyDown}/>
                 {showErrMag && password === '' && <div className='err-msg'>*Please provide password</div>}
-                <div className='mt-5 mx-auto fit-content'>
-                    <Button type='primary' size='middle' onClick={(e) => submitLoginDetails()} loading={isLoading}>Login</Button>
+                <div className='login-container'>
+                    <Button type='primary' size='middle' onClick={(e) => validateLogin()} loading={isLoading}>Login</Button>
+                    <Button type='primary' size='middle' onClick={(e) => testUserLogin()} loading={isLoading}>Login With Demo User</Button>
                 </div>
                 <div className='sign-up-text'>Don&apos;t have an account? <Link href="/create-account"><a className='blue-fonts'>Sign up</a></Link> here.</div>
             </div>
